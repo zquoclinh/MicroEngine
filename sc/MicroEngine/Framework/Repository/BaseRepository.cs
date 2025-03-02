@@ -29,7 +29,6 @@ namespace MicroEngine.Framework.Repository
         public async Task AddAsync(TEntity entity)
         {
             await _context.AddAsync(entity);
-            await SaveAsync();
         }
 
         public async Task UpdateAsync(TEntity entity)
@@ -37,8 +36,6 @@ namespace MicroEngine.Framework.Repository
             var entry = _context.Entry(entity);
             entry.State = EntityState.Modified;
             entry.Property(x => x.Id).IsModified = false;
-
-            await SaveAsync();
         }
 
         public async Task DeleteAsync(int id)
@@ -47,7 +44,6 @@ namespace MicroEngine.Framework.Repository
             if (entity != null)
             {
                 _context.Remove(entity);
-                await SaveAsync();
             }
         }
 
